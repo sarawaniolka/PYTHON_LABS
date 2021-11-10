@@ -1,5 +1,5 @@
 primeNums = []
-N = 27
+N = 11
 
 for i in range (2, N+1):
     c=0
