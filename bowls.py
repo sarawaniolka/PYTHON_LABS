@@ -1,4 +1,4 @@
-n = 5
+n = 100000000
 sum = (n *(n+1)) / 2
 print(sum)
 
@@ -9,4 +9,4 @@ def sum_bowls_recursion(r):
     else:
         return r + sum_bowls_recursion(r-1)
 
-print(sum_bowls_recursion(5))
+print(sum_bowls_recursion(998))
