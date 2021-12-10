@@ -31,3 +31,14 @@ def find_csv(path_to_dir, suffix=".csv"):
 
 
 print(find_csv(dir_name))
+
+# 3. Calculating the percentage change between Close and Open price and
+# adding these values as another column to this CSV file.
+
+for file in find_csv(dir_name):
+    csv_file = open(file)
+    for row in csv_file:
+        Closings = row.split(',')[4]
+
+
+
