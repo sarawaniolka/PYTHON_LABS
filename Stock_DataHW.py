@@ -3,18 +3,18 @@ import os
 
 dir_name = os.getcwd()
 
-#Downloading the file
+#1.Downloading the file
 def download_file(name):
     url = 'https://query1.finance.yahoo.com/v7/finance/download/'+name+'?period1=1587042293&period2=1618578293&interval=1d&events=history&includeAdjustedClose=true'
     with urllib.request.urlopen(url) as response, open(name + '.csv', 'wb') as out_file:
         out_file.write(response.read())
 
-#Finding csv files in directory
+#2.Finding csv files in directory
 def find_csv(path_to_dir, suffix=".csv"):
     filenames = os.listdir(path_to_dir)
     return [filename for filename in filenames if filename.endswith(suffix)]
 
-#Calculating the change value and adding to data
+#3.Calculating the change value and adding to data
 def calculate_change(file):
     out_data = []
     with open(file, 'r') as f:
@@ -25,8 +25,8 @@ def calculate_change(file):
         indata = row.strip().split(',')
         opening = float(indata[1])
         closing = float(indata[4])
-        change = (closing - opening)/closing
-        out_data.append(indata + [str(change)])
+        change = ((closing - opening)/opening) * 100
+        out_data.append(indata + [str(change) + '%'])
     return out_data
 
 #Writing the file
