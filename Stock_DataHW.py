@@ -37,22 +37,22 @@ print(find_csv(dir_name))
 
 for file in find_csv(dir_name):
     csv_file = open(file)
-    Closings = []
-    Openings = []
+    Closings = [] #list for closing values
+    Openings = [] #list for opening values
     for row in csv_file:
-        Closings.append(row.split(',')[4])
-        Openings.append(row.split(',')[1])
-    Closings.pop(0)
-    Openings.pop(0)
-    Closings = [*map(float, Closings)]
-    Openings = [*map(float, Openings)]
-    csv_file = open(file, 'a')
-    for x in range(0, len(Closings)):
-        Change = str((Closings[x]-Openings[x])/Closings[x])
+        Closings.append(row.split(',')[4]) #add a closing value to the list
+        Openings.append(row.split(',')[1]) #add an opening value to the list
+    Closings.pop(0) #delete the header from closing values
+    Openings.pop(0) #delete the header from opening values
+    Closings = [*map(float, Closings)] #change closing values to a float
+    Openings = [*map(float, Openings)] #change opening values to a float
+    for x in range(0, len(Closings)): #for every row in a file
+        Change = str((Closings[x]-Openings[x])/Closings[x]) #calculate the change
+        print(Change)
 
-    for row in csv_file:
-        csv_file.write(",")
-        csv_file.write(Change)
+
+
+
 
 
 
