@@ -37,8 +37,18 @@ print(find_csv(dir_name))
 
 for file in find_csv(dir_name):
     csv_file = open(file)
+    Closings = []
+    Openings = []
     for row in csv_file:
-        Closings = row.split(',')[4]
+        Closings.append(row.split(',')[4])
+        Openings.append(row.split(',')[1])
+    Closings.pop(0)
+    Openings.pop(0)
+    Closings = [*map(float, Closings)]
+    Openings = [*map(float, Openings)]
+    for x in range(0, len(Closings)):
+        Change = (Closings[x]-Openings[x])/Closings[x]
+
 
 
 
