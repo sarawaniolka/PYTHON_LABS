@@ -29,3 +29,23 @@ for r in range(rows):
             x[r,c]=1
 
 print(x)
+
+#Create a random 3×5 array using the np.random.rand(3, 5) function and compute:
+# the sum of the rows and
+# the sum of the columns.
+# (many Numpy functions have an optional axis= argument!)
+
+y = np.random.rand(3,5)
+print(y)
+
+# the sum of all the entries:
+SumAll = np.concatenate(y).sum()
+print("The sum of all entries: {}".format(SumAll))
+
+# the sum of the rows:
+sumRow = np.sum(y,axis=1)
+print('The sum of all the rows: {}'.format(sumRow))
+
+# the sum of the columns:
+sumCol = np.sum(y, axis=0)
+print('The sum of all the columns: {}'.format(sumCol))
