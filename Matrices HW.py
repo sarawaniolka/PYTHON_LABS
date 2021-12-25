@@ -55,3 +55,9 @@ A2 = np.array([1, 0, 1, 0], dtype = bool)
 print(A1)
 print(A2)
 
+for i in range(0, len(A1)):
+    value_and = A1[i] and A2[i]
+    value_or = A1[i] or A2[i]
+    print('{} and {}: {}'.format(A1[i],A2[i],value_and))
+    print('{} or {}: {}'.format(A1[i],A2[i],value_or))
+
