@@ -73,7 +73,29 @@ for i in range(0, len(M)):
 print('The indices of non-zero elements: {}'.format(indices))
 
 # Create an 8×8 array with random values and find minimum and maximum value
-x = np.random.randn(8, 8)
-print(x)
-print('The min value: {}'.format(np.amin(x)))
-print('The max value: {}'.format(np.amax(x)))
+X = np.random.randn(8, 8)
+print(X)
+print('The min value: {}'.format(np.amin(X)))
+print('The max value: {}'.format(np.amax(X)))
+
+# Create a 8×8 array with random natural values from the range (1-100) on the diagonal,
+# other values should be 0.
+A = np.zeros((8, 8), int)
+v = np.random.random_integers(1, high=100, size=8)
+A = np.diag(v)
+print(A)
+
+
+# Write a function which creates an n×n matrix with (i,j)-entry equal to i+j.
+def create_matrix(n):
+    A = np.random.rand(n, n)
+    rows = len(A)
+    cols = len(A[0])
+    print(A)
+    for r in range(0, rows):
+        for c in range(0, cols):
+            A[r, c] = r + c
+    print(A)
+
+
+create_matrix(5)
