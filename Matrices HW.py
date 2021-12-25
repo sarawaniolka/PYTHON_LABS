@@ -6,7 +6,7 @@ M1 = [[1, 0], [0, 1]]
 M2 = [[1, 2], [3, 4]]
 print(M1)
 print(M2)
-print('The multiplication of M1 and M2: \n{}'.format(np.dot(M1,M2)))
+print('The multiplication of M1 and M2: \n{}'.format(np.dot(M1, M2)))
 
 # Generate an array of length 3n filled with the cyclic pattern 1, 2, 3.
 
@@ -81,7 +81,6 @@ print('The max value: {}'.format(np.amax(X)))
 
 # Create a 8×8 array with random natural values from the range (1-100) on the diagonal,
 # other values should be 0.
-A = np.zeros((8, 8), int)
 v = np.random.random_integers(1, high=100, size=8)
 A = np.diag(v)
 print(A)
@@ -101,14 +100,16 @@ def create_matrix(n):
 
 create_matrix(5)
 
+
 # Write a function which creates an n×n matrix with rows having subsequent values multiplied by the row's number.
 
 def multiplied_rows(n):
     vector = np.arange(n)
-    A = np.asmatrix([vector,]*n)
-    for r in range(0,n):
-        for c in range(0,n):
-            A[r,c]=A[r,c]*(r+1)
+    A = np.asmatrix([vector, ] * n)
+    for r in range(0, n):
+        for c in range(0, n):
+            A[r, c] = A[r, c] * (r + 1)
     print(A)
+
 
 multiplied_rows(4)
