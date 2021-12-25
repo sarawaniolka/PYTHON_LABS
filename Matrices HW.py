@@ -50,7 +50,7 @@ print('The sum of all the columns: {}'.format(sumCol))
 # Given the following arrays representing logical values (0 = False, 1 = True)
 # compute the logical AND and logical OR operations for every pair of values of the two arrays:
 
-A1 =np.array([1, 1, 0, 0], dtype = bool)
+A1 = np.array([1, 1, 0, 0], dtype = bool)
 A2 = np.array([1, 0, 1, 0], dtype = bool)
 print(A1)
 print(A2)
