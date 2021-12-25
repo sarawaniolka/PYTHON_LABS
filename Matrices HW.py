@@ -6,6 +6,7 @@ M1 = [[1, 0], [0, 1]]
 M2 = [[1, 2], [3, 4]]
 print(M1)
 print(M2)
+print('The multiplication of M1 and M2: \n{}'.format(np.dot(M1,M2)))
 
 # Generate an array of length 3n filled with the cyclic pattern 1, 2, 3.
 
