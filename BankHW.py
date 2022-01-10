@@ -79,16 +79,19 @@ class Bank:
 
     def transfer(self, from_account_id, to_account_id, amount):
         #DO - please note that you might need to find the "from" and "to" accounts in the list
-        fromid = [x for x in self.cust_list if x.id == from_account_id]
-        toid = [x for x in self.cust_list if x.id == to_account_id]
-        if len(fromid) == 1:
-            if len(toid) == 1:
-                print("ok")
-
-            else:
-                print("The receiver of the transfer does not exist.")
-        else:
-            print("The transferor does not exist.")
+        # fromid = [x for x in self.cust_list if x.id == from_account_id]
+        # toid = [x for x in self.cust_list if x.id == to_account_id]
+        # if len(fromid) == 1:
+        #     if len(toid) == 1:
+        from_account_id.charge(amount)
+        to_account_id.deposit(amount)
+        print("You transfered: {}.".format(amount))
+        pass
+        #
+        #     else:
+        #         print("The receiver of the transfer does not exist.")
+        # else:
+        #     print("The transferor does not exist.")
 
         # based on the ids provided as input
 
@@ -105,5 +108,5 @@ a1 = b.new_account(c1, is_savings=True)
 a2 = b.new_account(c1, is_savings=False)
 a3 = b.new_account(c3, is_savings=True)
 
-
+b.transfer(a1,a2,30)
 
