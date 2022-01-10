@@ -9,7 +9,7 @@ class Customer:
         Customer.last_id += 1
         self.id = Customer.last_id
 
-    @property
+
     def __repr__(self):
         return 'Customer[{},{},{},{}]'.format(self.id, self.first_name, self.last_name, self.email)
 
@@ -25,12 +25,14 @@ class Account:
 
     #do - add methods "charge" and "deposit" that will change the balance
     def charge(self, amount):
-        self.balance -= amount
+        if self._balance > amount:
+            self._balance -= amount
+        else:
+            print("The funds are insufficient")
 
     def deposit(self, amount):
         self._balance += amount
 
-    @property
     def __repr__(self):
         return '{}[{},{},{}]'.format(self.__class__.__name__, self.id, self.customer.last_name, self._balance)
 
@@ -69,10 +71,18 @@ class Bank:
 
     def transfer(self, from_account_id, to_account_id, amount):
         #DO - please note that you might need to find the "from" and "to" accounts in the list
-        print("test")
+        fromid = [x for x in self.cust_list if x.id == from_account_id]
+        toid = [x for x in self.cust_list if x.id == to_account_id]
+        if len(fromid) == 1:
+            if len(toid) == 1:
+                print("ok")
+            else:
+                print("The receiver of the transfer does not exist.")
+        else:
+            print("The transferor does not exist.")
+
         # based on the ids provided as input
 
-    @property
     def __repr__(self):
         return 'Bank\n{}\n{}'.format(self.cust_list, self.acc_list)
 
@@ -80,8 +90,11 @@ b = Bank()
 
 c1 = b.new_customer('John', 'Brown', 'john@brown.com')
 c2 = b.new_customer('Anna', 'Smith', 'anne@smith.com')
+c3 = b.new_customer('Sara', 'Waniolka', 'sw116322@student.sgh.waw.pl')
 
 a1 = b.new_account(c1, is_savings=True)
 a2 = b.new_account(c1, is_savings=False)
+a3 = b.new_account(c3, is_savings=True)
 
-print(b)
+b.transfer(1,2,20)
+
