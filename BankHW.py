@@ -25,13 +25,21 @@ class Account:
 
     #do - add methods "charge" and "deposit" that will change the balance
     def charge(self, amount):
-        if self._balance > amount:
-            self._balance -= amount
+        if amount > 0:
+            if self._balance >= amount:
+                self._balance -= amount
+                print("The charge of {} has been made. Your account balance is {}.".format(amount,self._balance))
+            else:
+                print("The funds are insufficient. You currently have {}.".format(self._balance))
         else:
-            print("The funds are insufficient")
+            print("The charge needs to be a positive number.")
 
     def deposit(self, amount):
-        self._balance += amount
+        if amount >= 0:
+            self._balance += amount
+            print("You have made a deposit = {}. Your account balance is {}.".format(amount, self._balance))
+        else:
+            print("You can't deposit a negative number!")
 
     def __repr__(self):
         return '{}[{},{},{}]'.format(self.__class__.__name__, self.id, self.customer.last_name, self._balance)
@@ -76,6 +84,7 @@ class Bank:
         if len(fromid) == 1:
             if len(toid) == 1:
                 print("ok")
+
             else:
                 print("The receiver of the transfer does not exist.")
         else:
@@ -96,5 +105,5 @@ a1 = b.new_account(c1, is_savings=True)
 a2 = b.new_account(c1, is_savings=False)
 a3 = b.new_account(c3, is_savings=True)
 
-b.transfer(1,2,20)
+
 
