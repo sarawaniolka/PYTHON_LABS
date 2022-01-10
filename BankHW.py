@@ -23,7 +23,12 @@ class Account:
         self.customer = customer
         self._balance = 0
 
-    # TODO - add methods "charge" and "deposit" that will change the balance
+    #do - add methods "charge" and "deposit" that will change the balance
+    def charge(self, amount):
+        self.balance -= amount
+
+    def deposit(self, amount):
+        self._balance += amount
 
     @property
     def __repr__(self):
@@ -47,13 +52,13 @@ class Bank:
         self.acc_list = []
 
     def new_customer(self, first_name, last_name, email):
-        #TODO - create a new customer, add it to a list of customers
+        #DO - create a new customer, add it to a list of customers
         c = Customer(first_name, last_name, email)
         self.cust_list.append(c)
         return c
 
     def new_account(self, customer, is_savings=True):
-        #TODO - create a new account and add it to the list of accounts
+        #DO - create a new account and add it to the list of accounts
         # if is_savings:
         #     a = SavingsAccount(customer)
         # else:
@@ -63,7 +68,7 @@ class Bank:
         return a
 
     def transfer(self, from_account_id, to_account_id, amount):
-        #TODO - please note that you might need to find the "from" and "to" accounts in the list
+        #DO - please note that you might need to find the "from" and "to" accounts in the list
         print("test")
         # based on the ids provided as input
 
