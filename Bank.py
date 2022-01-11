@@ -28,7 +28,7 @@ class Account:
         if amount > 0:
             if self._balance >= amount:
                 self._balance -= amount
-                print("The charge of {} has been made. Your account balance is {}.".format(amount,self._balance))
+                print("The charge of {} has been made. The account balance of ID:{} is {}.".format(amount, self.id,self._balance))
             else:
                 print("The funds are insufficient. You currently have {}.".format(self._balance))
         else:
@@ -37,9 +37,12 @@ class Account:
     def deposit(self, amount):
         if amount >= 0:
             self._balance += amount
-            print("You have made a deposit = {}. Your account balance is {}.".format(amount, self._balance))
+            print("The deposit of {} has been made. The account balance of ID:{} is {}.".format(amount, self.id, self._balance))
         else:
             print("You can't deposit a negative number!")
+
+    def get_balance(self):
+        return self._balance
 
     def __repr__(self):
         return '{}[{},{},{}]'.format(self.__class__.__name__, self.id, self.customer.last_name, self._balance)
@@ -62,35 +65,33 @@ class Bank:
         self.acc_list = []
 
     def new_customer(self, first_name, last_name, email):
-        #DO - create a new customer, add it to a list of customers
         c = Customer(first_name, last_name, email)
         self.cust_list.append(c)
         return c
 
     def new_account(self, customer, is_savings=True):
-        #DO - create a new account and add it to the list of accounts
-        # if is_savings:
-        #     a = SavingsAccount(customer)
-        # else:
-        #     a = CheckingAccount(customer)
         a = SavingsAccount(customer) if is_savings else CheckingAccount(customer)
         self.acc_list.append(a)
         return a
 
+    def choose_account(self, id):
+        return [a for a in self.acc_list if a.id == id]
+
+    def check_transfer(self, from_account, to_account, amount):
+        check_transfer = False
+        if from_account and to_account:
+            if from_account[0].get_balance() >= amount:
+                check_transfer = True
+        return check_transfer
+
     def transfer(self, from_account_id, to_account_id, amount):
-        #DO - please note that you might need to find the "from" and "to" accounts in the list
-        fromid = [x for x in self.cust_list if x.id == from_account_id]
-        toid = [x for x in self.cust_list if x.id == to_account_id]
-        if len(fromid) == 1:
-            if len(toid) == 1:
-                print("ok")
-
-            else:
-                print("The receiver of the transfer does not exist.")
+        from_account, to_account = self.choose_account(from_account_id), self.choose_account(to_account_id)
+        if self.check_transfer(from_account, to_account, amount):
+            to_account[0].deposit(amount)
+            from_account[0].charge(amount)
+            print("The transfer from ID:{} to ID:{} of {} has been made.".format(from_account_id, to_account_id, amount))
         else:
-            print("The transferor does not exist.")
-
-        # based on the ids provided as input
+            print('The transfer cannot be made.')
 
     def __repr__(self):
         return 'Bank\n{}\n{}'.format(self.cust_list, self.acc_list)
@@ -105,5 +106,7 @@ a1 = b.new_account(c1, is_savings=True)
 a2 = b.new_account(c1, is_savings=False)
 a3 = b.new_account(c3, is_savings=True)
 
+a1.deposit(40)
+b.transfer(a1.id,a2.id,30)
 
 
