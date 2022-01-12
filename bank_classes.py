@@ -1,14 +1,18 @@
 class BankError(Exception):
     pass
 
+
 class AccountNotExistsError(BankError):
     pass
+
 
 class NotEnoughMoneyErrir(BankError):
     pass
 
+
 class NegativeAmountError(BankError):
     pass
+
 
 class Customer:
     last_id = 0
@@ -34,23 +38,17 @@ class Account:
         self._balance = 0
 
     def charge(self, amount):
-        if amount > 0:
-            if self._balance >= amount:
-                self._balance -= amount
-                print("The charge of {} has been made. The account balance of ID:{} is {}.".format(amount, self.id,
-                                                                                                   self._balance))
-            else:
-                print("The funds are insufficient. You currently have {}.".format(self._balance))
-        else:
-            print("The charge needs to be a positive number.")
+        if amount<0:
+            raise NegativeAmountError('{} amount provided to dpeosit: {}'.format(self.id, amount))
+        if amount > self._balance:
+            raise NotEnoughMoneyErrir('{} emount provided to deposit: {}'.format(self.id, amount))
+        self._balance -= amount
 
     def deposit(self, amount):
-        if amount >= 0:
-            self._balance += amount
-            print("The deposit of {} has been made. The account balance of ID:{} is {}.".format(amount, self.id,
-                                                                                                self._balance))
-        else:
-            print("You can't deposit a negative number!")
+        if amount < 0:
+            raise NegativeAmountError('{} amount provided to deposit: {}'.format(self.id, amount))
+        self._balance += amount
+
 
     def get_balance(self):
         return self._balance
@@ -96,14 +94,11 @@ class Bank:
         return check_transfer
 
     def transfer(self, from_account_id, to_account_id, amount):
-        from_account, to_account = self.choose_account(from_account_id), self.choose_account(to_account_id)
-        if self.check_transfer(from_account, to_account, amount):
-            to_account[0].deposit(amount)
-            from_account[0].charge(amount)
-            print(
-                "The transfer from ID:{} to ID:{} of {} has been made.".format(from_account_id, to_account_id, amount))
-        else:
-            print('The transfer cannot be made.')
+        from_account = self.acc_list[from_account_id-1]
+        to_account = self.acc_list[to_account_id-1]
+        from_account.charge(amount)
+        to_account.deposit(amount)
+
 
     def __repr__(self):
         return 'Bank\n{}\n{}'.format(self.cust_list, self.acc_list)
@@ -119,5 +114,7 @@ a1 = b.new_account(c1, is_savings=True)
 a2 = b.new_account(c1, is_savings=False)
 a3 = b.new_account(c3, is_savings=True)
 
-a1.deposit(40)
-b.transfer(a1.id, a2.id, 30)
+a1.deposit(100)
+print(b)
+b.transfer(a1.id, a2.id, 100)
+print(b)
